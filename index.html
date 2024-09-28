@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll to Section</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px;
+            background-color: #f0f0f0;
+            padding: 10px;
+        }
+        .side-menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .side-menu ul li {
+            margin: 10px 0;
+        }
+        .content-section {
+            margin-left: 220px;
+            padding: 20px;
+        }
+        section {
+            height: 500px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #eaeaea;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<div class="side-menu">
+    <ul>
+        <li><a href="#section1">섹션 1</a></li>
+        <li><a href="#section2">섹션 2</a></li>
+        <li><a href="#section3">섹션 3</a></li>
+        <li><a href="#section4">섹션 4</a></li>
+    </ul>
+</div>
+
+<div class="content-section">
+    <section id="section1">
+        <h2>섹션 1</h2>
+        <p>이곳은 섹션 1의 내용입니다.</p>
+    </section>
+    <section id="section2">
+        <h2>섹션 2</h2>
+        <p>이곳은 섹션 2의 내용입니다.</p>
+    </section>
+    <section id="section3">
+        <h2>섹션 3</h2>
+        <p>이곳은 섹션 3의 내용입니다.</p>
+    </section>
+    <section id="section4">
+        <h2>섹션 4</h2>
+        <p>이곳은 섹션 4의 내용입니다.</p>
+    </section>
+</div>
+
+<script>
+    document.querySelectorAll('.side-menu a').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+
+            targetSection.scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
