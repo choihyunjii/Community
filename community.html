@@ -4,30 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사이드 메뉴</title>
+    <title>커뮤니티 사이트</title>
     <style>
-        body {
-            display: flex;
-            margin: 0;
-        }
+        /**/
 
+        /*사이드바*/
         .sidebar {
             position: fixed;
             top: 0;
             left: 0;
-            width: 250px;
+            width: 260px;
             height: 100vh;
             background-color: #2D2F31;
             border-right: 1px solid #ddd;
             overflow-y: auto;
             z-index: 1000;
+
         }
 
         .content {
-            margin-left: 250px;
+            margin-left: 280px;
             padding: 20px;
             flex-grow: 1;
-            background-color: #f8f9fa;
         }
 
         .menu-item {
@@ -77,20 +75,209 @@
             background-color: #000000;
         }
 
+        /*메인*/
+        #main-container{
+            margin:0 auto;
+        }
         #img-container {
-            width: 90%;
-            margin: 0 auto;
+
             height: 500px;
             background-image: url('./img/풍경2.jpg');
             background-size: 100% 500px;
 
             border: 1px solid black;
+            transition: background-image 0.5s ease-in-out;
         }
 
-        /*#main-img {
-            background-image: url(./img/풍경1.jpg);
+        #notice-container{
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse; /* 테두리 겹침 방지 */
+        }
+
+        thead {
+            background-color: #ffffff;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            color: #4e5968;
+            font-weight: bold;
+            border-bottom: 2px solid #e8e8e8; /* 헤더 아래 가로줄 */
+            border-top: 2px solid #e8e8e8;
+        }
+
+        td {
+            color: #4e5968;
+            border-bottom: 2px solid #e8e8e8; /* 본문 가로줄 */
+        }
+        tr:nth-child(odd) td {
+            background-color: #f3f3f3; /* 배경색을 원하는 색으로 변경 */
+        }
+
+        .list-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 5px;
+
+        }
+
+        /*로그인*/
+        .login-container {
+            padding-top: 20px;
+            width: 80%;
+           /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .input {
+            width: 95%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .button {
+            width: 50%;
+            padding: 12px;
+            background-color: #3089ff;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #3089ff;
+        }
+
+        .signup-link {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            color: #3089ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /*회원가입*/
+        .signup-container {
+            padding-top: 20px;
+            width: 80%;
+            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+            text-align: center;
+        }
+        /*자유 게시판*/
+        #bottom-container{
             border:1px solid black;
-        }*/
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        #writing{
+            padding: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            background-color: #3089ff;
+            color: white;
+            border: none;
+            margin-left: auto;
+            border-radius: 3px;
+            cursor: pointer;
+
+        }
+        #write-container{
+            border:1px solid black;
+            margin-top: 20px;
+
+        }
+        #select-category{
+            border:1px solid black;
+             margin: 15px auto 0 ;
+             height: 60px;
+             align-items: center;
+
+        }
+        .category{
+            display: flex;
+            gap: 20px;
+        }
+        /* input 숨겨준다 */
+        .category input{
+            display: none;
+        }
+
+        input + label{
+            cursor:pointer;
+        }
+
+        .category input + label > span{
+            vertical-align: middle;
+            padding-left: 10px;
+            font-size: 18px;
+            font-weight: lighter;
+        }
+
+        /* label:before에 체크하기 전 상태 CSS */
+        .category input + label:before{
+            content:"";
+            display:inline-block;
+            width:22px;
+            height:22px;
+            border:1px solid #A6A6A6;
+            border-radius: 4px;
+            vertical-align:middle;
+        }
+
+        /* label:before에 체크 된 상태 CSS */
+        .category input:checked + label:before{
+            content:"";
+            border-color: #3089ff;
+            background-image: url("./img/checkbox_v.png");
+            background-size:17px 15px ;
+            background-repeat: no-repeat;
+            background-position: 50%;
+        }
+
+
+
+
+
 
     </style>
 </head>
@@ -117,23 +304,43 @@
 
     <div class="menu-item">
         <button class="menu-title" onclick="closeAllMenus(); activateMenu(this); showContent('board')">
-            <img src="img/board.png" alt="자유게시판 아이콘" class="menu-icon">
+            <img src="./img/board.png" alt="자유게시판 아이콘" class="menu-icon">
             자유 게시판
         </button>
     </div>
 </div>
 
 <div class="content" id="contentArea">
-    <!-- 기본적으로 메인 페이지의 내용을 보여줍니다. -->
 </div>
 
 <script>
+
+    //메인 이미지 변경
+
+    const images = [
+       /* './img/풍경1.jpg',
+        './img/풍경2.jpg',
+        './img/풍경3.jpg',*/
+    ];
+
+    let currentIndex = 0;
+
+
+    /*function changeImage() {
+        const imgContainer = document.getElementById('img-container');
+        imgContainer.style.backgroundImage = `url('${images[currentIndex]}')`;
+        currentIndex = (currentIndex + 1) % images.length; // Loop back to the first image
+    }
+    setInterval(changeImage, 3000);*/
+
+
+
     // 페이지가 로드될 때 기본 콘텐츠를 메인으로 설정
 
     const main = document.getElementById('main');
 
     window.onload = function() {
-        showContent('main');
+        showContent('write');
     };
 
     // 모든 서브메뉴를 닫는 함수
@@ -167,17 +374,139 @@
 
         switch (content) {
             case 'main':
-                htmlContent = '<h1>커뮤니티 웹 사이트</h1><p style="font-size: 20px">이곳은 회원님들끼리 자유롭게 의사소통을 하며 즐길 수 있는 커뮤니티 웹 사이트입니다.</p>' +
-                    '<hr><div id="img-container"><!--<img src="./img/풍경2.jpg" id="main-img">--> </div>';
+                htmlContent = '<h1>커뮤니티 웹 사이트</h1><p style="font-size: 20px; color: #2D2F31;">이곳은 회원님들끼리 자유롭게 의사소통을 하며 즐길 수 있는 커뮤니티 웹 사이트입니다.</p>' +
+                    '<hr id="hr">' +
+                    '<div id="main-container"><div id="img-container"></div></div>\n'+
+                    '<div id="notice-container"><h3>공지사항</h3>' +
+                    '<table>\n' +
+                    '    <thead>\n' +
+                    '    <tr>\n' +
+                    '        <th>번호</th>\n' +
+                    '        <th>제목</th>\n' +
+                    '        <th>작성자</th>\n' +
+                    '        <th>날짜</th>\n' +
+                    '    </tr>\n' +
+                    '    </thead>\n' +
+                    '    <tbody>\n' +
+                    '    <tr>\n' +
+                    '        <td>1</td>\n' +
+                    '        <td class="list-title">첫 번째 글입니다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ</td>\n' +
+                    '        <td>홍길동</td>\n' +
+                    '        <td>2024-09-28</td>\n' +
+                    '    </tr>\n' +
+                    '    <tr>\n' +
+                    '        <td>2</td>\n' +
+                    '        <td class="list-title">두 번째 글</td>\n' +
+                    '        <td>김철수</td>\n' +
+                    '        <td>2024-09-27</td>\n' +
+                    '    </tr>\n' +
+                    '    <tr>\n' +
+                    '        <td>3</td>\n' +
+                    '        <td class="list-title">세 번째 글</td>\n' +
+                    '        <td>이영희</td>\n' +
+                    '        <td>2024-09-26</td>\n' +
+                    '    </tr>\n' +
+                    '    </tbody>\n' +
+                    '</table>'+
+                    '</div>'
                 break;
             case 'login':
-                htmlContent = '<h1>로그인 페이지</h1><p>여기는 로그인 페이지의 내용입니다.</p>';
+                htmlContent = '<h1 >로그인</h1><p style="font-size: 20px; color: #2D2F31;">아이디와 비밀번호를 입력하여 로그인을 하세요.</p>' +
+                    '<hr>'+
+                    '<div class="login-container">\n' +
+                    '        <div id="login-form">\n' +
+                    '            <div class="input-group">\n' +
+                    '                <label for="username">아이디</label>\n' +
+                    '                <input type="text" id="username" name="username" required class="input">\n' +
+                    '            </div>\n' +
+                    '            <div class="input-group">\n' +
+                    '                <label for="password">비밀번호</label>\n' +
+                    '                <input type="password" id="password" name="password" required class="input">\n' +
+                    '            </div>\n' +
+                    '            <button type="button" class="button">로그인</button>\n' +
+                    '        </div>\n' +
+                    '        <p class="signup-link">계정이 없으신가요? <a href="#">회원가입</a></p>\n' +
+                    '    </div>';
                 break;
             case 'signup':
-                htmlContent = '<h1>회원가입 페이지</h1><p>여기는 회원가입 페이지의 내용입니다.</p>';
+                htmlContent = '<h1>회원가입</h1><p style="font-size: 20px; color: #2D2F31;">정보를 입력해 회원가입을 하세요.</p>' +
+                '<hr>'+
+                '<div class="signup-container">\n' +
+                '        <div id="login-form">\n' +
+                '            <div class="input-group">\n' +
+                '                <label for="username">아이디</label>\n' +
+                '                <input type="text" id="username" name="username" required class="input">\n' +
+                '            </div>\n' +
+                '            <div class="input-group">\n' +
+                '                <label for="password">비밀번호</label>\n' +
+                '                <input type="password" id="password" name="password" required class="input">\n' +
+                '            </div>\n' +
+                    '<div class="input-group">\n' +
+                    '                <label for="password">비밀번호 확인</label>\n' +
+                    '                <input type="password" id="password" name="password" required class="input">\n' +
+                    '            </div>\n'+
+                    '<div class="input-group">\n' +
+                    '                <label for="name">이름</label>\n' +
+                    '                <input type="text" id="name" name="name" required class="input">\n' +
+                    '            </div>\n'+
+                    '<div class="input-group">\n' +
+                    '                <label for="email">이메일</label>\n' +
+                    '                <input type="email" id="email" name="email" required class="input">\n' +
+                    '            </div>\n'+
+                '            <button type="button" class="button">회원가입</button>\n' +
+                '        </div>\n'
+
                 break;
             case 'board':
-                htmlContent = '<h1>자유 게시판</h1><p>여기는 자유 게시판의 내용입니다.</p>';
+                htmlContent = '<h1>자유 게시판</h1><p style="font-size: 20px; color: #2D2F31;">다른 회원들과 자유롭게 소통하세요.</p>' +
+                    '<hr>'+
+                    '<table>\n' +
+                    '    <thead>\n' +
+                    '    <tr>\n' +
+                    '        <th>번호</th>\n' +
+                    '        <th>제목</th>\n' +
+                    '        <th>작성자</th>\n' +
+                    '        <th>날짜</th>\n' +
+                    '    </tr>\n' +
+                    '    </thead>\n' +
+                    '    <tbody>\n' +
+                    '    <tr>\n' +
+                    '        <td>1</td>\n' +
+                    '        <td class="list-title">첫 번째 글입니다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ</td>\n' +
+                    '        <td>홍길동</td>\n' +
+                    '        <td>2024-09-28</td>\n' +
+                    '    </tr>\n' +
+                    '    <tr>\n' +
+                    '        <td>2</td>\n' +
+                    '        <td class="list-title">두 번째 글</td>\n' +
+                    '        <td>김철수</td>\n' +
+                    '        <td>2024-09-27</td>\n' +
+                    '    </tr>\n' +
+                    '    <tr>\n' +
+                    '        <td>3</td>\n' +
+                    '        <td class="list-title">세 번째 글</td>\n' +
+                    '        <td>이영희</td>\n' +
+                    '        <td>2024-09-26</td>\n' +
+                    '    </tr>\n' +
+                    '    </tbody>\n' +
+                    '</table>' +
+                    '<div id="bottom-container"><div id="page-nation"></div><div id="go-write"><button id="writing" onclick="clickWriting()">글 작성</button></div></div>'+
+                    ''
+                break;
+            case 'write':
+                htmlContent = '<h1>글 쓰기</h1><p style="font-size: 20px; color: #2D2F31;">게시글 유형을 선택하여 글을 작성합니다.</p> <hr>'+
+                    '<div id="write-container">'+
+                        '<div id="select-category">\n' +
+                            '<label>유형</label>'+
+                        '    <div class="category">\n' +
+                        '        <input type="checkbox" id="notice" onclick="validateCheckbox(this)">\n' +
+                        '        <label for="notice"><span>공지사항</span></label>\n' +
+                                 '<input type="checkbox" id="list" onclick="validateCheckbox(this)">' +
+                            '     <label for="list"><span>자유 게시판</span></label>'+
+                        '    </div>\n' +
+                        '</div>'+
+                    '</div>'
+
                 break;
             default:
                 htmlContent = '<h1>환영합니다!</h1><p>메뉴 항목을 클릭하세요.</p>';
@@ -186,6 +515,27 @@
 
         contentArea.innerHTML = htmlContent; // 선택한 콘텐츠로 업데이트
     }
+
+    /*글 작성 버튼 킅릭시*/
+
+    function clickWriting(){
+        showContent('write');
+    }
+
+    function validateCheckbox(currentCheckbox) {
+        const noticeCheckbox = document.getElementById('notice');
+        const listCheckbox = document.getElementById('list');
+
+        // 현재 체크한 박스가 notice인지 list인지에 따라 반대 체크박스를 가져옵니다.
+        const otherCheckbox = currentCheckbox.id === 'notice' ? listCheckbox : noticeCheckbox;
+
+        // 만약 둘 다 체크되면 알림창을 띄우고 체크를 해제합니다.
+        if (noticeCheckbox.checked && listCheckbox.checked) {
+            alert('중복 선택은 불가능합니다.');
+            currentCheckbox.checked = false;
+        }
+    }
+
 </script>
 
 </body>
