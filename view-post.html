@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 상세보기</title>
+    <style>
+
+        .post-container {
+            width: 70%;
+            margin: 20px auto; /* 약간의 여백 추가 */
+            padding: 20px;
+
+            border: 1px solid #e0e0e0;
+            border-radius: 10px; /* 모서리 둥글게 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
+        }
+
+        .post-header {
+            margin-bottom: 20px; /* 아래에 약간의 간격 추가 */
+        }
+
+        .post-title {
+            margin: 0;
+            font-size: 32px; /* 폰트 크기 조금 키움 */
+            font-weight: bold;
+            color: #333;
+            border-bottom: 2px solid #ddd; /* 제목 아래에 구분선 추가 */
+            padding-bottom: 10px;
+        }
+
+        .post-meta {
+            font-size: 16px;
+            color: #888;
+            margin-bottom: 20px; /* 메타 정보와 본문 사이 간격 추가 */
+            margin-top: 20px;
+        }
+
+        .post-meta span {
+            margin-right: 20px; /* 메타 정보 간의 간격 넓힘 */
+        }
+
+        .post-writer {
+            font-weight: bold; /* 작성자 정보는 강조 */
+        }
+
+        .post-content {
+            display: flex;
+           justify-content: center;
+        }
+
+        .post-image {
+
+
+            width: 80%;
+            height: 500px;
+            margin-top: 10px;
+            border-radius: 8px; /* 모서리를 좀 더 둥글게 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 이미지에 약간의 그림자 */
+        }
+
+        .post-body {
+            padding: 10px 0;
+            margin: 0;
+            font-size: 18px; /* 약간 작은 크기로 조정 */
+            line-height: 1.8; /* 줄 간격을 좀 더 넓게 */
+            color: #555;
+            text-align: left;
+        }
+
+        #post-bottom {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            cursor: pointer;
+            color: #5b5b5b;
+            font-weight: bold;
+            justify-content: space-between;
+
+        }
+        #post-bottom h3{
+            margin: 0;
+            padding: 0;
+        }
+
+
+        #back:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        #button-container{
+
+
+        }
+
+        #button-container button{
+            background-color: #3089ff;
+            border:none;
+            font-weight: bold;
+            color: white;
+            font-size: 16px;
+            padding: 3px 4px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        input{
+            width: 300px;
+            height: 40px;
+            padding: 10px;
+            font-size: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input:hover{
+            border: 2px solid #ccc;
+        }
+
+        input:active{
+            border: 2px solid #ccc;
+        }
+
+        #contentInput{
+            width: 800px;
+            height: 70px;
+            padding: 10px;
+            font-size: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+
+
+
+
+        html{font-size: 20px;}
+        body{font-size: 1rem;}
+        /*반응형*/
+        @media screen and (max-width:1840px) {
+            html{font-size: 19px;}
+            body{font-size: 1rem;}
+        }
+        @media screen and (max-width:1540px) {
+            html{font-size: 15px;}
+            body{font-size: 1rem;}
+        }
+        @media screen and (max-width:1140px) {
+            html{font-size: 13px;}
+            body{font-size: 1rem;}
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+
+
+<div id="main"></div>
+<script>
+
+    // 게시글 데이터를 가져오는 함수
+    const fetchData = async () => {
+        const id = sessionStorage.getItem("postID");
+        try {
+            const response = await fetch(`http://localhost:8080/api/json/69c7d37032666107db1ee65b3bd8c248a3254126bab4f0ac37bcfb14fcad009a`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const responseData = await response.json();
+            console.log(responseData);
+
+            // 해당 id와 일치하는 데이터를 찾아서 표시
+            const data = responseData.find(item => item.postID === id);
+            if (data) {
+                createView(data.title, data.writer, data.mainText, data.img, new Date(data.date).toLocaleDateString());
+                console.log('맞게 찾아옴');
+            } else {
+                console.error('No data found for the provided ID');
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    fetchData();
+
+
+
+    // 뷰를 생성하는 함수
+    const createView = (title, writer, mainText, img,date) => {
+        const main = document.getElementById("main");
+        const container = document.createElement("div");
+        container.className = "container";
+
+        container.innerHTML = `
+           <div class="post-container">
+                <div class="post-header">
+                    <h1 class="post-title">${title}</h1>
+
+                    <div class="post-meta">
+                        <span class="post-writer">작성자: ${writer}</span>
+                        <span class="post-date">작성일: ${date}</span>
+                    </div>
+                    <div class="post-content">
+                        <img src="${img}" alt="게시물 이미지" class="post-image">
+
+                    </div>
+                    <p class="post-body">
+                            ${mainText}
+                        </p>
+                </div>
+                <div id="post-bottom">
+                    <h3 onclick="backScreen()" id="back">뒤로 가기</h3>
+                    <h3 id="updateBtn">수정하기</h3>
+                </div>
+            </div>
+        `;
+        main.appendChild(container);
+
+        // 이벤트 리스너 설정
+
+
+        document.getElementById('updateBtn').addEventListener('click', updateData)
+    };
+
+    // 데이터를 삭제하는 함수
+    const deleteData = async () => {
+        const id = sessionStorage.getItem("postID");
+        try {
+            const response = await fetch(`http://localhost:8080/api/json/69c7d37032666107db1ee65b3bd8c248a3254126bab4f0ac37bcfb14fcad009a/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                console.log('삭제 성공');
+                alert('글이 삭제되었습니다.');
+                window.location.href='./community.html';
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        } catch (error) {
+            console.error('삭제 실패:', error);
+            alert('글 삭제에 실패하였습니다.');
+        }
+    };
+
+
+
+
+
+
+
+    const updateData = async () => {
+        const id = sessionStorage.getItem("postID");
+        try {
+            const response = await fetch(`http://localhost:8080/api/json/69c7d37032666107db1ee65b3bd8c248a3254126bab4f0ac37bcfb14fcad009a`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const responseData = await response.json();
+            console.log(responseData);
+
+            // 해당 id와 일치하는 데이터를 찾아서 표시
+            const data = responseData.find(item => item.postID === id);
+            if (data) {
+                updateView(data);
+            } else {
+                console.error('No data found for the provided ID');
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    // 데이터를 가져와서 수정할 수 있는 폼으로 표시
+    const updateView = (data) => {
+        let title = data.title
+        let writer = data.writer
+        let mainText = data.mainText
+        let date = new Date(data.date).toLocaleDateString();
+        let img = data.img
+
+        const main = document.getElementById("main");
+        const container = document.createElement("div");
+        container.className = "container";
+
+        main.innerHTML = `
+                <div class="post-container">
+                <div class="post-header">
+                    <h1 class="post-title"><input type="text" id="titleInput" value="${title}"></h1>
+
+                    <div class="post-meta">
+                        <span class="post-writer">작성자 <input type="text" id="authorInput" value="${writer}"></span>
+                        <span class="post-date">작성일: ${date}</span>
+                    </div>
+                    <div class="post-content">
+                        <img src="${img}" alt="게시물 이미지" class="post-image">
+
+                    </div>
+                     <p class="post-body">
+                     <textarea id="contentInput" style="resize: none">${mainText}</textarea>
+
+                        </p>
+                </div>
+                <div id="post-bottom">
+                    <h3 onclick="backScreen()" id="back">뒤로 가기</h3>
+                    <div id="button-container">
+                        <button id="saveButton"> 저장하기</button>
+                         <button id="deleteButton"> 삭제하기</button>
+                    </div>
+
+                </div>
+            </div>
+        `;
+        main.appendChild(container);
+
+
+
+        document.getElementById('saveButton').addEventListener('click', function() {
+            saveData(data);
+        });
+        document.getElementById('deleteButton').addEventListener('click', deleteData);
+    };
+    const saveData = async (data) => {
+        const id = sessionStorage.getItem("postID");
+        const title = document.getElementById("titleInput").value;
+        const writer = document.getElementById("authorInput").value;
+        const mainText = document.getElementById("contentInput").value;
+
+        let updateOBJ = {
+            postID:id,
+            title: title,
+            writer: writer,
+            date: data.date,
+            img: data.img,
+            mainText: mainText
+
+        };
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/json/69c7d37032666107db1ee65b3bd8c248a3254126bab4f0ac37bcfb14fcad009a/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updateOBJ)
+            });
+
+            if (response.ok) {
+                alert('글이 성공적으로 수정되었습니다.');
+                window.location.href='./community.html';
+
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        } catch (error) {
+            console.error('수정 실패:', error);
+            console.log("postID from sessionStorage:", id);
+            alert('글 수정에 실패하였습니다.');
+        }
+    };
+    function backScreen(){
+        window.history.back();
+    }
+</script>
+</body>
+</html>

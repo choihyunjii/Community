@@ -19,7 +19,6 @@
             border-right: 1px solid #ddd;
             overflow-y: auto;
             z-index: 1000;
-
         }
 
         .content {
@@ -204,7 +203,6 @@
         }
         /*자유 게시판*/
         #bottom-container{
-            border:1px solid black;
             margin-top: 20px;
             display: flex;
             justify-content: space-between;
@@ -213,7 +211,7 @@
             padding: 8px;
             font-weight: bold;
             font-size: 14px;
-            background-color: #3089ff;
+            background-color: #565656;
             color: white;
             border: none;
             margin-left: auto;
@@ -222,15 +220,15 @@
 
         }
         #write-container{
-            border:1px solid black;
-            margin-top: 20px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
 
         }
         #select-category{
-            border:1px solid black;
-             margin: 15px auto 0 ;
-             height: 60px;
-             align-items: center;
+
 
         }
         .category{
@@ -274,6 +272,161 @@
             background-position: 50%;
         }
 
+        #title-writer {
+            display: flex;
+            gap: 40px; /* 각 묶음 사이의 간격 */
+
+        }
+
+        .input-group label {
+            margin-right: 10px;
+        }
+
+        #title {
+            width: 700px;
+            height: 38px;
+        }
+
+        #writer{
+            width: 250px;
+            height: 38px;
+        }
+        label{
+            margin-bottom: 10px;
+        }
+        #main-text{
+            width: 1000px;
+            height: 150px;
+
+        }
+        #input-img{
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+
+        .label-container {
+            display: flex;
+            gap: 10px; /* 라벨과 입력 필드 사이의 간격 */
+        }
+
+        #no-update {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: red;
+        }
+
+        .label-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        #photo-upload {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        #write-bottom{
+            margin: 0;
+            width: 84%;
+        }
+
+        #write-bottom button{
+            width: 80px;
+            padding: 7px;
+            font-size:14px ;
+            font-weight: bold;
+            float: right;
+            background-color: #565656;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        /*페이지 네이션*/
+        #page-nation {
+            display: flex;
+            justify-content: center;
+        }
+
+        #page-nation button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            border:none;
+            background-color: transparent;
+            font-size: 15px;
+            font-family: "IBM Plex Sans KR", sans-serif;
+        }
+
+        #page-nation button.active {
+            font-weight: bold;
+            color: #565656;
+        }
+
+        /*게시글 보기*/
+        .post-container {
+
+            margin: 0 auto;
+            padding: 0;
+            background-color: #fff;
+
+        }
+
+        .post-header {
+
+        }
+
+        .post-title {
+            margin: 0;
+            font-size: 28px;
+            color: #333;
+
+        }
+
+        .post-meta {
+            font-size: 18px;
+            color: #777;
+        }
+
+        .post-meta span {
+            margin-right: 15px;
+        }
+        .post-writer{
+
+        }
+
+        .post-content {
+            text-align: center;
+        }
+
+        .post-image {
+            padding: 10px;
+            width: 80%;
+            height: 400px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .post-body {
+            padding: 0;
+            margin: 0;
+            font-size: 20px;
+            line-height: 1.5;
+            color: #555;
+            text-align: left;
+        }
+        #post-bottom{
+            cursor: pointer;
+
+        }
+
+
+
 
 
 
@@ -303,7 +456,7 @@
     </div>
 
     <div class="menu-item">
-        <button class="menu-title" onclick="closeAllMenus(); activateMenu(this); showContent('board')">
+        <button class="menu-title" onclick="closeAllMenus(); activateMenu(this); initializeNoticeBoard(); showContent('board')" >
             <img src="./img/board.png" alt="자유게시판 아이콘" class="menu-icon">
             자유 게시판
         </button>
@@ -318,20 +471,20 @@
     //메인 이미지 변경
 
     const images = [
-       /* './img/풍경1.jpg',
+        './img/풍경1.jpg',
         './img/풍경2.jpg',
-        './img/풍경3.jpg',*/
+        './img/풍경3.jpg',
     ];
 
     let currentIndex = 0;
 
 
-    /*function changeImage() {
+    function changeImage() {
         const imgContainer = document.getElementById('img-container');
         imgContainer.style.backgroundImage = `url('${images[currentIndex]}')`;
         currentIndex = (currentIndex + 1) % images.length; // Loop back to the first image
     }
-    setInterval(changeImage, 3000);*/
+    setInterval(changeImage, 3000);
 
 
 
@@ -340,7 +493,7 @@
     const main = document.getElementById('main');
 
     window.onload = function() {
-        showContent('write');
+        showContent('main');
     };
 
     // 모든 서브메뉴를 닫는 함수
@@ -368,6 +521,9 @@
         selectedButton.classList.add('active'); // 클릭된 버튼에만 'active' 클래스 추가
     }
 
+
+
+
     function showContent(content) {
         const contentArea = document.getElementById('contentArea');
         let htmlContent = '';
@@ -376,39 +532,8 @@
             case 'main':
                 htmlContent = '<h1>커뮤니티 웹 사이트</h1><p style="font-size: 20px; color: #2D2F31;">이곳은 회원님들끼리 자유롭게 의사소통을 하며 즐길 수 있는 커뮤니티 웹 사이트입니다.</p>' +
                     '<hr id="hr">' +
-                    '<div id="main-container"><div id="img-container"></div></div>\n'+
-                    '<div id="notice-container"><h3>공지사항</h3>' +
-                    '<table>\n' +
-                    '    <thead>\n' +
-                    '    <tr>\n' +
-                    '        <th>번호</th>\n' +
-                    '        <th>제목</th>\n' +
-                    '        <th>작성자</th>\n' +
-                    '        <th>날짜</th>\n' +
-                    '    </tr>\n' +
-                    '    </thead>\n' +
-                    '    <tbody>\n' +
-                    '    <tr>\n' +
-                    '        <td>1</td>\n' +
-                    '        <td class="list-title">첫 번째 글입니다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ</td>\n' +
-                    '        <td>홍길동</td>\n' +
-                    '        <td>2024-09-28</td>\n' +
-                    '    </tr>\n' +
-                    '    <tr>\n' +
-                    '        <td>2</td>\n' +
-                    '        <td class="list-title">두 번째 글</td>\n' +
-                    '        <td>김철수</td>\n' +
-                    '        <td>2024-09-27</td>\n' +
-                    '    </tr>\n' +
-                    '    <tr>\n' +
-                    '        <td>3</td>\n' +
-                    '        <td class="list-title">세 번째 글</td>\n' +
-                    '        <td>이영희</td>\n' +
-                    '        <td>2024-09-26</td>\n' +
-                    '    </tr>\n' +
-                    '    </tbody>\n' +
-                    '</table>'+
-                    '</div>'
+                    '<div id="main-container"><div id="img-container"></div></div>\n'
+
                 break;
             case 'login':
                 htmlContent = '<h1 >로그인</h1><p style="font-size: 20px; color: #2D2F31;">아이디와 비밀번호를 입력하여 로그인을 하세요.</p>' +
@@ -425,7 +550,7 @@
                     '            </div>\n' +
                     '            <button type="button" class="button">로그인</button>\n' +
                     '        </div>\n' +
-                    '        <p class="signup-link">계정이 없으신가요? <a href="#">회원가입</a></p>\n' +
+                    '        <p class="signup-link">계정이 없으신가요? <a href="#"  onclick="clickSignup()" >회원가입</a></p>\n' +
                     '    </div>';
                 break;
             case 'signup':
@@ -460,7 +585,7 @@
             case 'board':
                 htmlContent = '<h1>자유 게시판</h1><p style="font-size: 20px; color: #2D2F31;">다른 회원들과 자유롭게 소통하세요.</p>' +
                     '<hr>'+
-                    '<table>\n' +
+                    '<table >\n' +
                     '    <thead>\n' +
                     '    <tr>\n' +
                     '        <th>번호</th>\n' +
@@ -469,45 +594,45 @@
                     '        <th>날짜</th>\n' +
                     '    </tr>\n' +
                     '    </thead>\n' +
-                    '    <tbody>\n' +
-                    '    <tr>\n' +
-                    '        <td>1</td>\n' +
-                    '        <td class="list-title">첫 번째 글입니다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ</td>\n' +
-                    '        <td>홍길동</td>\n' +
-                    '        <td>2024-09-28</td>\n' +
-                    '    </tr>\n' +
-                    '    <tr>\n' +
-                    '        <td>2</td>\n' +
-                    '        <td class="list-title">두 번째 글</td>\n' +
-                    '        <td>김철수</td>\n' +
-                    '        <td>2024-09-27</td>\n' +
-                    '    </tr>\n' +
-                    '    <tr>\n' +
-                    '        <td>3</td>\n' +
-                    '        <td class="list-title">세 번째 글</td>\n' +
-                    '        <td>이영희</td>\n' +
-                    '        <td>2024-09-26</td>\n' +
-                    '    </tr>\n' +
+                    '    <tbody id="list-container">\n' +
                     '    </tbody>\n' +
                     '</table>' +
+            '</div>' +
                     '<div id="bottom-container"><div id="page-nation"></div><div id="go-write"><button id="writing" onclick="clickWriting()">글 작성</button></div></div>'+
                     ''
                 break;
             case 'write':
-                htmlContent = '<h1>글 쓰기</h1><p style="font-size: 20px; color: #2D2F31;">게시글 유형을 선택하여 글을 작성합니다.</p> <hr>'+
+                htmlContent = '<h1>글 쓰기</h1><p style="font-size: 20px; color: #2D2F31;">사진을 등록하여 글을 작성합니다.</p> <hr>'+
                     '<div id="write-container">'+
-                        '<div id="select-category">\n' +
-                            '<label>유형</label>'+
-                        '    <div class="category">\n' +
-                        '        <input type="checkbox" id="notice" onclick="validateCheckbox(this)">\n' +
-                        '        <label for="notice"><span>공지사항</span></label>\n' +
-                                 '<input type="checkbox" id="list" onclick="validateCheckbox(this)">' +
-                            '     <label for="list"><span>자유 게시판</span></label>'+
-                        '    </div>\n' +
-                        '</div>'+
-                    '</div>'
 
+                        '<div id="title-writer">' +
+                            '<div class="input-group">'+
+                                '<label>제목</label>      ' +
+                                '<input type="text" id="title" required> '+
+                            '</div>'+
+                            '<div class="input-group">' +
+                               '<label>작성자</label>'+
+                               '<input type="text" id="writer" required> '+
+                            '</div>'+
+                        '</div>'+
+                        '<div id="mainText-container">' +
+                            '<label>본문</label><textarea type="text" id="main-text" style="resize: none" required></textarea>'+
+                        '</div>'+
+                        '<form id="imageForm">' +
+                                '<div class="label-container">'+
+                                    '<div class="label-text">'+
+                                        '<label for="photo-upload">사진 첨부</label>'+
+                                        '<p id="no-update">수정불가</p>'+
+                                     '</div>'+
+                                        '<input type="file" id="photo-upload" accept="image/*"  name="file" required>'+
+                                        '<input type="text" id="imageTableID" name="tableHash" required style="display: none"><br>'+
+
+                                '</div>'+
+                        '</form>'+
+                        '<div id="write-bottom"><button type="button" id="write" onclick="writing()">글 작성</button> </div>'+
+                    '</div>'
                 break;
+
             default:
                 htmlContent = '<h1>환영합니다!</h1><p>메뉴 항목을 클릭하세요.</p>';
                 break;
@@ -515,26 +640,255 @@
 
         contentArea.innerHTML = htmlContent; // 선택한 콘텐츠로 업데이트
     }
-
     /*글 작성 버튼 킅릭시*/
 
     function clickWriting(){
         showContent('write');
     }
 
-    function validateCheckbox(currentCheckbox) {
-        const noticeCheckbox = document.getElementById('notice');
-        const listCheckbox = document.getElementById('list');
-
-        // 현재 체크한 박스가 notice인지 list인지에 따라 반대 체크박스를 가져옵니다.
-        const otherCheckbox = currentCheckbox.id === 'notice' ? listCheckbox : noticeCheckbox;
-
-        // 만약 둘 다 체크되면 알림창을 띄우고 체크를 해제합니다.
-        if (noticeCheckbox.checked && listCheckbox.checked) {
-            alert('중복 선택은 불가능합니다.');
-            currentCheckbox.checked = false;
-        }
+    function  clickSignup(){
+        showContent('signup');
     }
+
+
+
+
+
+
+    /*글 작성*/
+    function writing() {
+        document.addEventListener('click', async (event) => {
+            event.preventDefault();
+            fileUpload();
+        });
+    }
+
+
+    const fileUpload = async () => {
+        const form = document.getElementById('imageForm');
+        const tableValue = '69c7d37032666107db1ee65b3bd8c248a3254126bab4f0ac37bcfb14fcad009a'; // 테이블 해시 하드 코딩
+
+
+        document.getElementById('imageTableID').value = tableValue;
+        const formData = new FormData(form);
+        const token = '2GhON7btNo8h9+nLnfBSuYGJiRR9YnCG4JLOG819hMfCENsAGFcWu6rKvU2PZBP4f0gQd06vNTqpzc3Mo99XHw=='; // 사용자 토큰 하드코딩
+
+        fetch('http://localhost:8080/api/medias/image', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                sendData(data.mediaFileResourceURL);
+            })
+    };
+
+
+    /* 글 작성하기 */
+    const sendData = async (imageUrl) => {
+        try {
+            // 특정 조건에서 lastPostID 초기화
+            const shouldResetPostID = confirm("lastPostID를 초기화하시겠습니까?");
+            if (shouldResetPostID) {
+                localStorage.removeItem('lastPostID'); // lastPostID를 초기화
+            }
+
+            // localStorage에서 마지막 postID를 가져오고 없으면 0으로 초기화
+            let lastPostID = localStorage.getItem('lastPostID');
+
+            // lastPostID가 없으면 (즉, 기록을 지운 경우) 0으로 초기화
+            if (!lastPostID) {
+                lastPostID = 0; // 저장된 postID가 없으면 0으로 초기화
+            } else {
+                lastPostID = parseInt(lastPostID); // 숫자로 변환
+            }
+
+            // postID를 1 증가시킴
+            const postID = lastPostID + 1;
+
+            // postID가 1부터 시작하도록 다시 저장
+            localStorage.setItem('lastPostID', postID); // 증가된 값을 다시 localStorage에 저장
+
+            console.log("새로운 postID:", postID);
+
+            const title = document.getElementById('title').value;
+            const writer = document.getElementById('writer').value;
+            const date = new Date().toISOString(); // 현재 날짜를 ISO 포맷으로 저장
+            const img = imageUrl;
+            const mainText = document.getElementById('main-text').value;
+
+            const obj = {
+                postID: postID,
+                title: title,
+                writer: writer,
+                date: date,
+                img: img,
+                mainText: mainText
+            };
+
+            // 작성된 데이터를 서버로 전송
+            const response = await fetch(`http://localhost:8080/api/json/69c7d37032666107db1ee65b3bd8c248a3254126bab4f0ac37bcfb14fcad009a`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(obj) // 객체를 JSON 형식으로 변환하여 전송
+            });
+
+            const result = await response.text();
+            console.log(result);
+
+            if (response.ok) {
+                if (confirm("글 작성 성공")) {
+                    location.href = ""; // 페이지 새로고침
+                } else {
+                    console.log("User chose to stay on the page.");
+                }
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error('Error sending data:', error);
+        }
+    };
+
+
+    /*글 가져오기 - 자유게시판*/
+    function initializeNoticeBoard() {
+        let data = []; // 데이터를 저장할 변수
+        const itemsPerPage = 5; // 페이지당 항목 수
+        let currentPage = 1; // 현재 페이지 초기화
+
+        // 서버에서 데이터를 가져오는 함수
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/api/json/69c7d37032666107db1ee65b3bd8c248a3254126bab4f0ac37bcfb14fcad009a`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+
+                const responseData = await response.json(); // 서버에서 가져온 데이터
+                console.log(responseData);
+
+                data = responseData; // 가져온 데이터를 전역 변수에 저장
+                updateView(); // 데이터를 가져온 후 뷰 업데이트
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        // 데이터를 렌더링하는 함수
+        function renderData(page) {
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const currentData = data.slice(startIndex, endIndex); // 현재 페이지의 데이터
+
+            const container = document.getElementById("list-container");
+            container.innerHTML = ""; // 기존 내용을 초기화
+
+            currentData.forEach(item => {
+                const tr = document.createElement("tr");
+
+                const tdIndex = document.createElement("td");
+                tdIndex.textContent = item.postID; // 번호
+                tr.appendChild(tdIndex);
+
+                const tdTitle = document.createElement("td");
+                tdTitle.textContent = item.title; // 제목
+                tdTitle.onclick = () => handleCellClick(item); // 클릭 시 item 객체 넘김
+                tr.appendChild(tdTitle);
+
+                const tdAuthor = document.createElement("td");
+                tdAuthor.textContent = item.writer || "작성자 정보 없음"; // 작성자
+                tr.appendChild(tdAuthor);
+
+                const tdDate = document.createElement("td");
+                tdDate.textContent = new Date(item.date).toLocaleDateString(); // 날짜
+                tdDate.onclick = () => handleCellClick(item); // 클릭 시 item 객체 넘김
+                tr.appendChild(tdDate);
+
+                container.appendChild(tr); // tbody에 tr 추가
+            });
+
+        }
+
+        // 페이지네이션을 렌더링하는 함수
+        function renderPagination() {
+            const totalPages = Math.ceil(data.length / itemsPerPage);
+            const paginationContainer = document.getElementById("page-nation");
+            paginationContainer.innerHTML = "";
+
+            // 이전 버튼
+            const prevButton = document.createElement("button");
+            prevButton.textContent = "이전";
+            prevButton.disabled = currentPage === 1;
+            prevButton.addEventListener("click", () => {
+                currentPage--;
+                updateView();
+            });
+            paginationContainer.appendChild(prevButton);
+
+            // 페이지 버튼들
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement("button");
+                pageButton.textContent = i;
+                if (i === currentPage) {
+                    pageButton.classList.add("active");
+                }
+                pageButton.addEventListener("click", () => {
+                    currentPage = i;
+                    updateView();
+                });
+                paginationContainer.appendChild(pageButton);
+            }
+
+            // 다음 버튼
+            const nextButton = document.createElement("button");
+            nextButton.textContent = "다음";
+            nextButton.disabled = currentPage === totalPages;
+            nextButton.addEventListener("click", () => {
+                currentPage++;
+                updateView();
+            });
+            paginationContainer.appendChild(nextButton);
+        }
+
+        // 뷰를 업데이트하는 함수
+        function updateView() {
+            console.log(data);
+            renderData(currentPage);
+            renderPagination();
+        }
+
+        // 글 클릭 시 실행되는 함수
+        const handleCellClick = (item) => {
+            const postID = item.postID;
+            sessionStorage.setItem("postID",item.postID);
+            console.log(postID);
+            location.href="./view-post.html";
+        };
+
+        // 초기 데이터 가져오기 호출
+        fetchData();
+    }
+
+
+
+
+
+
+
 
 </script>
 

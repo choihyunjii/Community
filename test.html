@@ -1,179 +1,86 @@
-<!--
-&lt;!&ndash;
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>리스트 예제</title>
+    <title>게시물 보기</title>
     <style>
-        #list-container {
-            margin: 30px auto 0 auto;
-            width: 70%;
-        }
-
-        #list-table {
-            border-bottom: 1px solid #8D8D8D;
-            width: 100%;
-        }
-
-        #list-title {
+        * {
             margin: 0;
-            padding: 10px 0;
-            color: #4e5968;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        #list-date {
-            margin: 0;
-            padding-bottom: 12px;
-            color: #8b95a1;
-        }
-    </style>
-</head>
-<body>
-
-<div id="list-container">
-    <div id="list-table">
-        <h3 id="list-title">첫 번째 아이템</h3>
-        <h5 id="list-date">2024-09-28</h5>
-    </div>
-</div>
-
-</body>
-</html>
-&ndash;&gt;
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>글 목록 테이블</title>
-    <style>
-       /* table {
-            width: 50%;
-            border-collapse: collapse; !* 테두리 겹침 방지 *!
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
         }
 
-        thead {
-            background-color: #ffffff;
+        .post-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        th, td {
-            padding: 12px;
+        .post-header {
+            margin-bottom: 20px;
+        }
+
+        .post-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .post-meta {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .post-meta span {
+            margin-right: 15px;
+        }
+
+        .post-content {
             text-align: center;
         }
 
-        th {
-            color: #4e5968;
-            font-weight: bold;
-            border-bottom: 2px solid #e8e8e8; !* 헤더 아래 가로줄 *!
-            border-top: 2px solid #e8e8e8;
+        .post-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 5px;
         }
 
-        td {
-            color: #4e5968;
-            border-bottom: 2px solid #e8e8e8; !* 본문 가로줄 *!
-        }
-        tr:nth-child(odd) td {
-            background-color: #f3f3f3; !* 배경색을 원하는 색으로 변경 *!
-        }
-
-        .list-title {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 5px;
-
-        }*/
-       .select-category{
-          /* width: 90%;
-           margin: 15px auto 0 ;
-           height: 60px;
-           display: flex;
-           align-items: center;
-           gap: 15px;*/
-       }
-        .category{
-            display: flex;
-            gap: 15px;
-        }
-        /* input 숨겨준다 */
-        .category input{
-            display: none;
-        }
-
-        input + label{
-            cursor:pointer;
-        }
-
-        input + label > span{
-            vertical-align: middle;
-            padding-left: 10px;
+        .post-body {
             font-size: 18px;
-        }
-
-        /* label:before에 체크하기 전 상태 CSS */
-        input + label:before{
-            content:"";
-            display:inline-block;
-            width:32px;
-            height:18px;
-            border:1px solid #A6A6A6;
-            border-radius: 4px;
-            vertical-align:middle;
-        }
-
-        /* label:before에 체크 된 상태 CSS */
-        input:checked + label:before{
-            content:"";
-            border-color:#00A3FF;
-            background-image: url("./img/checkbox_v.png");
-            background-size:20px 15px ;
-            background-repeat: no-repeat;
-            background-position: 50%;
+            line-height: 1.8;
+            color: #555;
+            text-align: left;
         }
 
     </style>
 </head>
 <body>
-
-&lt;!&ndash;<table>
-    <thead>
-    <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>날짜</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>1</td>
-        <td class="list-title">첫 번째 글입니다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ</td>
-        <td>홍길동</td>
-        <td>2024-09-28</td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td class="list-title">두 번째 글</td>
-        <td>김철수</td>
-        <td>2024-09-27</td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td class="list-title">세 번째 글</td>
-        <td>이영희</td>
-        <td>2024-09-26</td>
-    </tr>
-    </tbody>
-</table>&ndash;&gt;
-<div class="select-category">
-
-    <div class="category">
-        <input type="checkbox" id="family">
-        <label for="family"><span>가족</span></label>
+<div class="post-container">
+    <div class="post-header">
+        <h1 class="post-title">게시물 제목</h1>
+        <div class="post-meta">
+            <span class="post-author">작성자: 홍길동</span>
+            <span class="post-date">작성일: 2024년 10월 5일</span>
+        </div>
+    </div>
+    <div class="post-content">
+        <img src="image.jpg" alt="게시물 이미지" class="post-image">
+        <p class="post-body">
+            여기에 게시물의 본문 내용이 들어갑니다. 이 예시는 단순히 텍스트의 배치와 스타일을 보여주기 위한 것입니다. 본문 내용은 동적인 데이터를 통해 대체될 수 있습니다.
+        </p>
     </div>
 </div>
 </body>
 </html>
--->

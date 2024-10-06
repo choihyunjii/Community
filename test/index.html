@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>SPA 예시</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        header {
+            height: 60px;
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #343a40;
+            color: white;
+            padding: 10px;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<header>
+    <h1>사이트 헤더</h1>
+</header>
+
+<!-- 컨테이너: 사이드바 + 본문 -->
+<div class="container">
+    <div class="sidebar">
+        <!-- 사이드바 -->
+        <button onclick="loadPage('main')">메인</button><br>
+        <button onclick="loadPage('board')">자유 게시판</button><br>
+        <button onclick="loadPage('profile')">프로필</button>
+    </div>
+
+    <!-- 콘텐츠 영역 -->
+    <div class="content" id="content">
+        <!-- 여기에서 동적으로 콘텐츠가 바뀜 -->
+        <h2>메인 페이지</h2>
+        <p>여기는 메인 콘텐츠가 나오는 곳입니다.</p>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

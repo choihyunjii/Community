@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>커뮤니티 웹 사이트</title>
+    <style>
+        #notice-container{
+            margin-left: 280px;
+            padding: 20px;
+            flex-grow: 1;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse; /* 테두리 겹침 방지 */
+        }
+
+        thead {
+            background-color: #ffffff;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            color: #4e5968;
+            font-weight: bold;
+            border-bottom: 2px solid #e8e8e8;
+            border-top: 2px solid #e8e8e8;
+        }
+
+        td {
+            color: #4e5968;
+            border-bottom: 2px solid #e8e8e8;
+        }
+        tr:nth-child(odd) td {
+            background-color: #f3f3f3;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <p style="font-size: 20px; color: #2D2F31;">
+        이곳은 회원님들끼리 자유롭게 의사소통을 하며 즐길 수 있는 커뮤니티 웹 사이트입니다.
+    </p>
+    <hr id="hr">
+
+        <div id="notice-container">
+            <h3>공지사항</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>날짜</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td class="list-title">첫 번째 글입니다</td>
+                    <td>홍길동</td>
+                    <td>2024-09-28</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+    <p>&copy; 2024 커뮤니티 웹 사이트. All rights reserved.</p>
+
+</body>
+</html>
